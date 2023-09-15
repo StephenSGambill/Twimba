@@ -135,3 +135,21 @@ button {
 .hidden {
     display: none;
 }
+
+.modal {
+    width: 300px;
+    height: 150px;
+    background-color: black;
+    color: white;
+    border-radius: 10px;
+    padding: 10px;
+    text-align: center;
+    position: fixed;
+    top: 100px;
+    left: 300px;
+}
+
+.modal-btn {
+    background-color: gray;
+    width: 100px;
+}

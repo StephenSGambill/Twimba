@@ -14,8 +14,31 @@ document.addEventListener('click', (e) => {
         handleRetweetClick(e.target.dataset.retweet)
     } else if (e.target.id === 'tweet-btn') {
         handleTweetBtnClick()
+    } else if (e.target.dataset.delete) {
+        handleDeleteTweet(e.target.dataset.delete)
     }
 })
+
+function handleDeleteTweet(tweetId) {
+    const foundIndex = tweetsData.findIndex((tweet) => tweet.uuid === tweetId)
+    const tweetToDelete = tweetsData[foundIndex]
+
+    const confirmModal = document.getElementById("confirmModal")
+    const confirmDeleteButton = document.getElementById("confirmDelete")
+    const cancelDeleteButton = document.getElementById("cancelDelete")
+
+    confirmModal.style.display = "block"
+
+    confirmDeleteButton.addEventListener("click", () => {
+        tweetsData.splice(foundIndex, 1)
+        renderTweets()
+        confirmModal.style.display = "none"
+    })
+
+    cancelDeleteButton.addEventListener("click", () => {
+        confirmModal.style.display = "none"
+    })
+}
 
 function handleLikeClick(tweetId) {
     const targetTweetObj = tweetsData.filter((tweet) => {
@@ -115,6 +138,10 @@ function getFeedHtml() {
                             <i class="fa-solid fa-retweet ${retweetedIconClass}"
                             data-retweet=${tweet.uuid}></i>
                             ${tweet.retweets}
+                        </span>
+                        <span class="tweet-detail">
+                        <i class="fa-regular fa-trash-can"
+                        data-delete=${tweet.uuid}></i>
                         </span>
                         </div >
                     </div >
